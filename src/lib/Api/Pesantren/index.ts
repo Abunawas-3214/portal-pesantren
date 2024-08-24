@@ -1,4 +1,4 @@
-
+import { pesantrenSearhParams } from "@/types";
 export type PesantrenData = {
     name: string
     slug: string
@@ -57,9 +57,10 @@ export type PesantrenValidasiData = {
     kategori_validasi: string,
     file: string
 }
-export async function fetchPesantren() {
+export async function fetchPesantren(searchParams: pesantrenSearhParams | {}) {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_APP_API_HOST}/api/pesantren`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_APP_API_HOST}/api/pesantren${Object.keys(searchParams).length > 0 ? '?' + new URLSearchParams(searchParams as any).toString() : ''
+            }`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

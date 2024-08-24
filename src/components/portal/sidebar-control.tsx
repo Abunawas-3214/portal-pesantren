@@ -7,7 +7,7 @@ export default function SidebarControll({ className, ...props }: React.HTMLAttri
     const genderData = ['putra', 'putri'];
     const programData = ['kitab', 'tahfidz'];
     const tingkatData = ['umum', 'mahasiswa', 'SLTP', 'SLTA'];
-    const kecamatanData = ['Lowokwaru', 'Blimbing', 'Kedungkandang', 'Klojen', 'Sukun'];
+    const kecamatanData = ['lowokwaru', 'blimbing', 'kedungkandang', 'klojen', 'sukun'];
 
     return (
         <div className={cn("h-fit w-full py-4 px-8 border rounded-none space-y-4", className)} {...props}>

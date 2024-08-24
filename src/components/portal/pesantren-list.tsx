@@ -6,7 +6,6 @@ interface PesantrenListProps {
 }
 
 export default async function PesantrenList({ fetchData }: PesantrenListProps) {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
     const pesantrenData = await fetchData();
 
     const renderedPesantren = pesantrenData.data.map((pesantren) => {

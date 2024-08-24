@@ -1,5 +1,5 @@
-import CardPesantren from "@/components/portal/card-pesantren";
 import PesantrenList from "@/components/portal/pesantren-list";
+import PesantrenListSkeleton from "@/components/portal/pesantren-list-skeleton";
 import SearchPesantren from "@/components/portal/search-pesantren";
 import SidebarControl from "@/components/portal/sidebar-control";
 import { fetchPesantren } from "@/lib/Api/Pesantren";
@@ -13,10 +13,9 @@ export default function PesantrenPage({ searchParams }: { searchParams: pesantre
         <SearchPesantren />
         <div className="h-fit grid grid-cols-4 gap-10">
           <SidebarControl className="sticky top-28" />
-          <Suspense fallback={<p>Loading...</p>}>
-            <PesantrenList fetchData={() => fetchPesantren()} />
+          <Suspense fallback={<PesantrenListSkeleton />}>
+            <PesantrenList fetchData={() => fetchPesantren(searchParams)} />
           </Suspense>
-
         </div>
       </div>
     </main>
