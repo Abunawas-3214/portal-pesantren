@@ -4,14 +4,14 @@ import Image from 'next/image'
 import imgBerita from "/public/images/berita.jpg"
 import { Button } from '../ui/button'
 import Link from 'next/link'
-
-export default function CardBeritaLarge() {
+import { Berita } from '@/types/berita'
+export default function CardBeritaLarge({ berita }: { berita: Berita }) {
     return (
         <div className='h-[30rem] w-full'>
             <div className="h-full w-full grid grid-rows-5">
                 <div className="row-span-3 relative w-full h-full">
                     <Image
-                        src={imgBerita}
+                        src={berita.featured_image ?? imgBerita}
                         alt="featured image berita"
                         height={1000}
                         width={1000}
@@ -23,15 +23,17 @@ export default function CardBeritaLarge() {
                         <CardBeritaLargePattern />
                     </div>
                     <div className="absolute text-white text-left px-8 py-4 flex flex-col justify-beetween h-full w-full">
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-2 h-full">
                             <div className="flex justify-between">
-                                <p className="font-medium text-lg">Author - 6 Agustus 2024</p>
-                                <p className='text-sm font-normal'>Category</p>
+                                <p className="font-medium text-lg">{berita.user} - {berita.created_at}</p>
+                                <p className='text-sm font-normal capitalize'>
+                                    {berita.categories && berita.categories.length >= 2 ? berita.categories.join(', ') : berita.categories}
+                                </p>
                             </div>
                             <div className='grow'>
-                                <h6 className='text-2xl font-semibold line-clamp-2 grow'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod fugit quos nemo itaque aperiam cum enim</h6>
+                                <h6 className='text-3xl font-semibold line-clamp-2 grow'>{berita.title}</h6>
                             </div>
-                            <Link href={'/berita/slug'}>
+                            <Link href={`/berita/${berita.slug}`}>
                                 <Button variant={'secondary'}>
                                     Selengkapnya
                                 </Button>

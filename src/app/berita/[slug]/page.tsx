@@ -2,26 +2,43 @@ import Image from "next/image"
 import imgBerita from "/public/images/alhikam.jpg"
 import CreatedByPesantren from "@/components/berita-details/created-by-pesantren"
 import RelatedPostList from "@/components/berita-details/related-post-list"
-export default function BeritaDetailsPage() {
+import { BeritaDetail } from "@/types/berita"
+import { fetchBeritaDetail } from "@/lib/Api/Berita"
+export default async function BeritaDetailsPage({ params }: { params: { slug: string } }) {
+  const { data: beritaDetail }: { data: BeritaDetail } = await fetchBeritaDetail(params.slug)
+  const markup = {
+    __html: beritaDetail.content ?? ""
+  }
   return (
     <main>
       <div className="container mx-auto max-w-2xl py-40 space-y-12">
         <div className="space-y-4">
-          <h1 className="font-bold text-2xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur magnam deserunt nostrum quae corporis at illum fuga distinctio ducimus, officiis, ipsa ratione, nisi quo odio. Eligendi accusantium totam error itaque.</h1>
-          <p className="font-medium">Admin - 25 Sept 2024</p>
-          <Image
-            src={imgBerita}
-            alt="featured image berita"
-            height={1000}
-            width={1000}
-          />
-          <p className="text-sm">Category</p>
+          <h1 className="font-bold text-4xl text-center">{beritaDetail.title}</h1>
+          <p className="font-medium">{beritaDetail.user} - {beritaDetail.created_at}</p>
+          {beritaDetail.featured_image &&
+            <Image
+              src={beritaDetail.featured_image ?? imgBerita}
+              alt="featured image berita"
+              height={1000}
+              width={1000}
+            />
+          }
+          <article className="prose prose-base leading-3">
+            <div dangerouslySetInnerHTML={markup} />
+          </article>
+          <p className="text-sm capitalize text-primary">
+            <span>Kategori:</span> {beritaDetail.categories && beritaDetail.categories.length >= 2 ? beritaDetail.categories.join(', ') : beritaDetail.categories}
+          </p>
         </div>
-        <div className="w-1/2 space-y-2">
-          <p className="text-secondary">Dibuat oleh</p>
-          <CreatedByPesantren />
-        </div>
-        <RelatedPostList />
+        {beritaDetail.pesantren &&
+          <div className="w-1/2 space-y-2">
+            <p className="text-secondary">Dibuat oleh</p>
+            <CreatedByPesantren pesantren={beritaDetail.pesantren} />
+          </div>
+        }
+        {beritaDetail.related_posts.length > 0 &&
+          <RelatedPostList relatedPosts={beritaDetail.related_posts} />
+        }
       </div>
     </main>
   )
