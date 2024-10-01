@@ -36,7 +36,7 @@ export default function Footer() {
                         />
                     </div>
                     <div className="text-stone-500 text-lg font-normal">
-                        <h3 className="text-black text-2xl font-bold">Rabithah Ma'ahid Islamiyah</h3>
+                        <h3 className="text-black text-2xl font-bold">Rabithah Ma&aposahid Islamiyah</h3>
                         <p>Nahdlatul Ulama Kota Malang</p>
                         <p>Jl. K.H. Hasyim Ashari No.21, Kauman, Kec. Klojen,<br /> Kota Malang, Jawa Timur, 65119</p>
                     </div>

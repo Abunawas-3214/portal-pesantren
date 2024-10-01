@@ -1,7 +1,7 @@
 'use client'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 export default function SearchPesantren() {

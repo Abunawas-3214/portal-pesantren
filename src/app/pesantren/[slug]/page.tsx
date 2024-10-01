@@ -1,7 +1,6 @@
 import Image from "next/image"
 import rmiLogo from "/public/rmi.svg"
 import ImageGallery from "@/components/pesantren-details/image-gallery"
-
 import SidebarInfo from "@/components/pesantren-details/sidebar-info"
 import { fetchPesantrenDetail, PesantrenDetailData } from "@/lib/Api/Pesantren"
 import Media from "@/components/pesantren-details/media"

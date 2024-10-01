@@ -6,6 +6,7 @@ import { fetchPesantren } from "@/lib/Api/Pesantren";
 import { pesantrenSearhParams } from "@/types";
 import { Suspense } from "react";
 
+export const dynamic = "force-dynamic";
 export default function PesantrenPage({ searchParams }: { searchParams: pesantrenSearhParams }) {
   return (
     <main>
