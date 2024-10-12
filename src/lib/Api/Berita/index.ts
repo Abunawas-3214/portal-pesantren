@@ -5,6 +5,9 @@ export async function fetchBerita() {
             headers: {
                 'Content-Type': 'application/json',
             },
+            next: {
+                revalidate: 3600
+            }
         })
         const data = await response.json()
         return data
@@ -20,6 +23,9 @@ export async function fetchBeritaDetail(slug: string) {
             headers: {
                 'Content-Type': 'application/json',
             },
+            next: {
+                revalidate: 3600
+            }
         })
         const data = await response.json()
         return data

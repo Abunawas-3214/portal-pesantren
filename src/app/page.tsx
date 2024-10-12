@@ -3,16 +3,19 @@ import HeroSection from "@/components/landing-page/hero-section";
 import PartnerSection from "@/components/landing-page/partner-section";
 import PesantrenSection from "@/components/landing-page/pesantren-section";
 import SearchPesantren from "@/components/landing-page/search-pesantren";
+import { fetchBeranda } from "@/lib/Api/Beranda";
+import { BerandaData } from "@/types/beranda-data";
 
-export default function Home() {
+export default async function Home() {
+  let dataBeranda: BerandaData = await fetchBeranda();
   return (
     <main>
-      <HeroSection />
+      <HeroSection meta={dataBeranda.meta} />
       <div className="container mx-auto max-w-screen-xl py-40 space-y-32">
         <SearchPesantren />
-        <PesantrenSection />
+        <PesantrenSection pesantren={dataBeranda.pesantren} />
         <PartnerSection />
-        <BeritaSection />
+        <BeritaSection posts={dataBeranda.posts} />
       </div>
     </main>
   );

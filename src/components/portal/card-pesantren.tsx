@@ -2,7 +2,7 @@ import CardPesantrenPattern from './card-pesantren-pattern'
 import { Backpack, Book, User } from 'lucide-react'
 import { Button } from '../ui/button'
 import Image from 'next/image'
-import imgAlhikam from "/public/images/alhikam.jpg"
+import fallbackImagePesantren from "/public/images/fallback/pesantren_sampul.jpg"
 import Link from 'next/link'
 import { PesantrenData } from '@/lib/Api/Pesantren'
 
@@ -13,7 +13,7 @@ export default function CardPesantren({ pesantren }: { pesantren: PesantrenData 
             <div className="relative row-span-4">
                 <div className="h-full overflow-hidden">
                     <Image
-                        src={pesantren.foto_sampul ?? imgAlhikam}
+                        src={pesantren.foto_sampul ?? fallbackImagePesantren}
                         alt="pesantren"
                         height={1000}
                         width={1000}

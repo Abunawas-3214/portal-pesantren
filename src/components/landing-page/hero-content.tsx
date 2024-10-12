@@ -3,8 +3,9 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import * as patterns from "@/components/svg/patterns"
 import Image from "next/image";
+import { BerandaData } from "@/types/beranda-data";
 
-export default function HeroContent({ className, ...props }: React.HTMLAttributes<HTMLElement>) {
+export default function HeroContent({ className, meta, ...props }: React.HTMLAttributes<HTMLElement> & { meta?: BerandaData["meta"] }) {
     return (
         <div className={cn(className)} {...props}>
             <div className="container mx-auto max-w-screen-xl">
@@ -32,7 +33,7 @@ export default function HeroContent({ className, ...props }: React.HTMLAttribute
                                     </div>
                                     <div className="absolute p-2 w-full h-full text-center text-white z-20 space-y-2">
                                         <p className="font-medium">Jumlah Pesantren</p>
-                                        <h2 className="font-semibold text-7xl">50</h2>
+                                        <h2 className="font-semibold text-7xl">{meta?.pesantren_total ?? '-'}</h2>
                                     </div>
                                 </div>
                                 <div className="relative w-1/2 h-full">
@@ -46,7 +47,7 @@ export default function HeroContent({ className, ...props }: React.HTMLAttribute
                                     </div>
                                     <div className="absolute p-2 w-full h-full text-center text-white z-20 space-y-2">
                                         <p className="font-medium">Jumlah Santri</p>
-                                        <h2 className="font-semibold text-7xl">1000</h2>
+                                        <h2 className="font-semibold text-7xl">{meta?.santri_total ?? '-'}</h2>
                                     </div>
                                 </div>
                             </div>

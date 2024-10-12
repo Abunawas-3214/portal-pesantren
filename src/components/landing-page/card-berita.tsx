@@ -1,17 +1,19 @@
 import Image, { StaticImageData } from "next/image"
 import CardBeritaPattern from "./card-berita-pattern"
 import { Button } from "../ui/button"
+import Link from "next/link"
 
 interface CardBeritaProps {
     date: String,
     title: string,
     author: string,
-    image: StaticImageData
+    image: string | StaticImageData
+    slug: string
 }
 
 export default function CardBerita(props: CardBeritaProps) {
     return (
-        <div className='h-full'>
+        <div className='h-full w-full max-w-md'>
             <div className="grid grid-rows-2 h-full bg-indigo-200">
                 <div className="relative overflow-hidden">
                     <div className="absolute w-full h-full overflow-hidden flex items-center justify-center">
@@ -34,9 +36,11 @@ export default function CardBerita(props: CardBeritaProps) {
                                 <h6 className='text-sm font-semibold line-clamp-2 grow'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod fugit quos nemo itaque aperiam cum enim</h6>
                             </div>
                         </div>
-                        <Button variant={"secondary"}>
-                            Selengkapnya
-                        </Button>
+                        <Link href={`/berita/${props.slug}`}>
+                            <Button variant={"secondary"}>
+                                Selengkapnya
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             </div>

@@ -5,9 +5,9 @@ import Link from "next/link";
 
 interface cardPesantrenProps {
     nama: string,
-    kecamatan: string,
-    image: StaticImageData
-
+    kecamatan?: string,
+    image: string | StaticImageData,
+    slug: string
 }
 
 export default function CardPesantren(props: cardPesantrenProps) {
@@ -25,9 +25,9 @@ export default function CardPesantren(props: cardPesantrenProps) {
             <div className="absolute top-0 flex flex-col items-center justify-between p-6 h-full w-full bg-gradient-to-b from-black/70 to-black/10 group-hover:from-black/50">
                 <div className="text-center text-white">
                     <h6 className="text-2xl font-semibold">{props.nama}</h6>
-                    <p className='text-lg font-normal'>{props.kecamatan}</p>
+                    <p className='text-lg font-normal capitalize'>{props.kecamatan}</p>
                 </div>
-                <Link href='/pesantren/alhikam'>
+                <Link href={`/pesantren/${props.slug}`}>
                     <Button>
                         Detail
                     </Button>
