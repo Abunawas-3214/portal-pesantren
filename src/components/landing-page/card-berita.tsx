@@ -14,7 +14,7 @@ interface CardBeritaProps {
 export default function CardBerita(props: CardBeritaProps) {
     return (
         <div className='h-full w-full max-w-md'>
-            <div className="grid grid-rows-2 h-full bg-indigo-200">
+            <div className="grid grid-rows-2 h-full">
                 <div className="relative overflow-hidden">
                     <div className="absolute w-full h-full overflow-hidden flex items-center justify-center">
                         <Image

@@ -27,7 +27,7 @@ export default function BeritaSection({ posts }: { posts?: BerandaData['posts'] 
                         />
                     </div>
                 }
-                {posts?.slice(1, 4).map((post, index) => (
+                {posts?.slice(1, 5).map((post, index) => (
                     <CardBerita
                         key={index}
                         date={post.created_at}

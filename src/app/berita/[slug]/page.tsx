@@ -23,7 +23,7 @@ export default async function BeritaDetailsPage({ params }: { params: { slug: st
               width={1000}
             />
           }
-          <article className="prose prose-base leading-3">
+          <article className="prose prose-base leading-6 prose-p:text-lg prose-h3:text-2xl prose-h3:font-semibold prose-li:leading-3 prose-a:text-primary">
             <div dangerouslySetInnerHTML={markup} />
           </article>
           <p className="text-sm capitalize text-primary">
