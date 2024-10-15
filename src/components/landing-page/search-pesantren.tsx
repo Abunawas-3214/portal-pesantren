@@ -1,6 +1,8 @@
+"use client"
 import React from 'react'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
+import * as actions from '@/actions'
 
 export default function SearchPesantren() {
     return (
@@ -9,12 +11,15 @@ export default function SearchPesantren() {
                 <h4 className='text-2xl font-semibold text-black'>Temukan <span className='text-primary'>Pesantren</span></h4>
             </div>
             <div className='flex justify-center w-full'>
-                <div className='flex w-3/5'>
-                    <Input placeholder="Cari Pesantren" />
-                    <Button>
+                <form action={actions.searchPesantren} className='flex w-3/5'>
+                    <Input
+                        placeholder="Cari Pesantren"
+                        name='term'
+                    />
+                    <Button type='submit'>
                         Cari
                     </Button>
-                </div>
+                </form>
             </div>
         </div>
     )

@@ -13,7 +13,7 @@ export default async function BeritaDetailsPage({ params }: { params: { slug: st
     <main>
       <div className="container mx-auto max-w-2xl py-40 space-y-12">
         <div className="space-y-4">
-          <h1 className="font-bold text-4xl text-center">{beritaDetail.title}</h1>
+          <h1 className="font-bold text-4xl text-center mb-16">{beritaDetail.title}</h1>
           <p className="font-medium">{beritaDetail.user} - {beritaDetail.created_at}</p>
           {beritaDetail.featured_image &&
             <Image
