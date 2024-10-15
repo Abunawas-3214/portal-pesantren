@@ -33,7 +33,7 @@ export default function CardBerita(props: CardBeritaProps) {
                         <div className="space-y-2">
                             <p className="font-normal text-xs line-clamp-1">{props.date} - {props.author}</p>
                             <div className='grow'>
-                                <h6 className='text-sm font-semibold line-clamp-2 grow'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod fugit quos nemo itaque aperiam cum enim</h6>
+                                <h6 className='text-sm font-semibold line-clamp-2 grow'>{props.title}</h6>
                             </div>
                         </div>
                         <Link href={`/berita/${props.slug}`}>
