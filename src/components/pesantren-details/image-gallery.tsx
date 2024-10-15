@@ -20,7 +20,10 @@ export default function ImageGallery({ photos }: { photos: { file: string }[] })
             </div>
             <div className="grid grid-cols-10 gap-2 w-full">
                 {data.map(({ file }, index) => (
-                    <div className="w-full h-14 overflow-hidden rounded-lg flex items-center justify-center cursor-pointer" key={index}>
+                    <div
+                        className={`w-full h-14 overflow-hidden rounded-lg flex items-center justify-center cursor-pointer ${active === file ? 'border-4 border-primary' : ''}`}
+                        key={index}
+                    >
                         <Image
                             onClick={() => setActive(file)}
                             src={file}

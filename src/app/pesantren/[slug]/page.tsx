@@ -11,7 +11,8 @@ export default async function PesantrenDetailsPage({ params }: { params: { slug:
   const markup = {
     __html: pesantren.deskripsi ?? ""
   }
-  console.log(pesantren)
+  // console.log(pesantren.validasi)
+  // console.log(pesantren.photos)
   return (
     <main>
       <div className="container mx-auto max-w-screen-xl py-40 space-y-24">
@@ -26,7 +27,7 @@ export default async function PesantrenDetailsPage({ params }: { params: { slug:
               />
               <div className="flex flex-col justify-center h-full w-full">
                 <h2 className='text-black text-3xl font-semibold'>{pesantren.name}</h2>
-                <h3 className='text-stone-500 text-lg font-normal line-clamp-1'>{pesantren.alamat}</h3>
+                <h3 className='text-stone-500 text-sm font-normal line-clamp-1'>{pesantren.alamat}</h3>
               </div>
             </div>
             <div>
@@ -39,7 +40,7 @@ export default async function PesantrenDetailsPage({ params }: { params: { slug:
               ? (
                 <div className="space-y-2">
                   <h2 className='text-black text-xl font-semibold'>Tentang Pesantren</h2>
-                  <article className="prose prose-base text-justify leading-6 prose-p:text-base prose-h3:text-xl prose-h3:font-semibold prose-li:leading-3 prose-a:text-primary">
+                  <article className="prose prose-base text-justify leading-5 prose-p:text-base prose-h1:text-primary prose-h1:text-2xl prose-h1:font-bold prose-li:leading-3 prose-a:text-primary">
                     <div dangerouslySetInnerHTML={markup} />
                   </article>
                 </div>

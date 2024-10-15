@@ -81,6 +81,9 @@ export async function fetchPesantrenDetail(slug: string) {
             headers: {
                 'Content-Type': 'application/json',
             },
+            next: {
+                revalidate: 60
+            }
         })
         const data = await response.json()
         return data
