@@ -11,6 +11,7 @@ export default async function PesantrenDetailsPage({ params }: { params: { slug:
   const markup = {
     __html: pesantren.deskripsi ?? ""
   }
+  console.log(pesantren)
   return (
     <main>
       <div className="container mx-auto max-w-screen-xl py-40 space-y-24">
@@ -38,7 +39,7 @@ export default async function PesantrenDetailsPage({ params }: { params: { slug:
               ? (
                 <div className="space-y-2">
                   <h2 className='text-black text-xl font-semibold'>Tentang Pesantren</h2>
-                  <article className="prose prose-base leading-3">
+                  <article className="prose prose-base text-justify leading-6 prose-p:text-base prose-h3:text-xl prose-h3:font-semibold prose-li:leading-3 prose-a:text-primary">
                     <div dangerouslySetInnerHTML={markup} />
                   </article>
                 </div>
