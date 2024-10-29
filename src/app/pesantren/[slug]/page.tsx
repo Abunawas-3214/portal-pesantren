@@ -5,6 +5,7 @@ import SidebarInfo from "@/components/pesantren-details/sidebar-info"
 import { fetchPesantrenDetail, PesantrenDetailData } from "@/lib/Api/Pesantren"
 import Media from "@/components/pesantren-details/media"
 import Validasi from "@/components/pesantren-details/validasi"
+import VideoProfile from "@/components/pesantren-details/video-profile"
 
 export default async function PesantrenDetailsPage({ params }: { params: { slug: string } }) {
   const { data: pesantren }: { data: PesantrenDetailData } = await fetchPesantrenDetail(params.slug)
@@ -61,6 +62,10 @@ export default async function PesantrenDetailsPage({ params }: { params: { slug:
             {
               pesantren.validasi.length > 0 &&
               <Validasi pesantrenValidasiData={pesantren.validasi} />
+            }
+            {
+              pesantren.video_profil &&
+              <VideoProfile video_link={pesantren.video_profil} />
             }
           </div>
           <div className="col-span-2 w-full">
