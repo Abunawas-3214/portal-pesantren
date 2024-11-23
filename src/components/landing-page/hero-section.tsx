@@ -6,9 +6,9 @@ import HeroPattern from "./hero-pattern";
 export default function HeroSection({ meta }: { meta?: BerandaData["meta"] }) {
     return (
         <div className="relative h-screen">
-            <HeroPattern className="absolute top-0 left-0 h-full w-fit" />
+            <HeroPattern className="hidden md:block absolute top-0 left-0 h-full w-fit" />
             <HeroContent meta={meta} className="absolute top-0 w-full h-full" />
-            <HeroImage className="absolute top-0 right-0 h-full w-1/2" />
+            <HeroImage className="md:block absolute top-0 md:right-0 h-full w-screen md:w-1/2 -z-10" />
         </div>
     )
 }

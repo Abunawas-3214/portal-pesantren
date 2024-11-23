@@ -2,6 +2,7 @@ import Image, { StaticImageData } from "next/image"
 import CardBeritaPattern from "./card-berita-pattern"
 import { Button } from "../ui/button"
 import Link from "next/link"
+import { cn } from "@/lib/utils"
 
 interface CardBeritaProps {
     date: String,
@@ -11,9 +12,9 @@ interface CardBeritaProps {
     slug: string
 }
 
-export default function CardBerita(props: CardBeritaProps) {
+export default function CardBerita({ className, ...props }: CardBeritaProps & React.HTMLAttributes<HTMLElement>) {
     return (
-        <div className='h-full w-full max-w-md'>
+        <div className={`${cn(className)} h-[18rem] md:h-full w-full md:max-w-md`}>
             <div className="grid grid-rows-2 h-full">
                 <div className="relative overflow-hidden">
                     <div className="absolute w-full h-full overflow-hidden flex items-center justify-center">
@@ -31,9 +32,9 @@ export default function CardBerita(props: CardBeritaProps) {
                     </div>
                     <div className="absolute text-white px-8 py-4 flex flex-col justify-between h-full">
                         <div className="space-y-2">
-                            <p className="font-normal text-xs line-clamp-1">{props.date} - {props.author}</p>
+                            <p className="font-normal text-[0.6rem] md:text-xs line-clamp-1">{props.date} - {props.author}</p>
                             <div className='grow'>
-                                <h6 className='text-sm font-semibold line-clamp-2 grow'>{props.title}</h6>
+                                <h6 className='text-xs md:text-sm font-semibold line-clamp-2 grow'>{props.title}</h6>
                             </div>
                         </div>
                         <Link href={`/berita/${props.slug}`}>

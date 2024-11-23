@@ -12,7 +12,7 @@ interface cardPesantrenProps {
 
 export default function CardPesantren(props: cardPesantrenProps) {
     return (
-        <div className="relative h-[30rem] w-72 group hover:-translate-y-1 hover:shadow-2xl transition-all duration-200">
+        <div className="relative h-[30rem] w-80 group hover:-translate-y-1 hover:shadow-2xl transition-all duration-200">
             <div className='h-full overflow-hidden'>
                 <Image
                     src={props.image}

@@ -11,7 +11,7 @@ export default async function Home() {
   return (
     <main>
       <HeroSection meta={dataBeranda.meta} />
-      <div className="container mx-auto max-w-screen-xl py-40 space-y-32">
+      <div className="px-6 md:px-0 container mx-auto max-w-screen-xl py-40 space-y-32">
         <SearchPesantren />
         <PesantrenSection pesantren={dataBeranda.pesantren} />
         <PartnerSection />

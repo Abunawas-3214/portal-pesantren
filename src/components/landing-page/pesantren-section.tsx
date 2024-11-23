@@ -11,7 +11,7 @@ export default function PesantrenSection({ pesantren }: { pesantren?: BerandaDat
                 <h4 className='text-2xl font-semibold text-black'>Daftar <span className='text-primary'>Pesantren</span></h4>
                 <h5 className='text-lg font-normal text-stone-500'>Berikut Beberapa Daftar Pesantren di Kota Malang</h5>
             </div>
-            <div className="flex justify-center gap-x-8">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-8">
                 {pesantren?.map((pesantren, index) => (
                     <CardPesantren
                         key={index}
