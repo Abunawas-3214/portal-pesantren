@@ -3,6 +3,7 @@ import { Montserrat } from 'next/font/google'
 import "./globals.css";
 import Footer from "@/components/partials/footer";
 import Header from "@/components/partials/header";
+import BackToTop from "@/components/ui/back-to-top";
 
 
 const montserrat = Montserrat({
@@ -26,6 +27,7 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+        <BackToTop />
       </body>
     </html>
   );

@@ -9,7 +9,7 @@ import { PesantrenData } from '@/lib/Api/Pesantren'
 export default function CardPesantren({ pesantren }: { pesantren: PesantrenData }) {
 
     return (
-        <div className="h-[28rem] w-72 grid grid-rows-7 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
+        <div className="h-[28rem] w-full max-w-sm mx-auto grid grid-rows-7 hover:-translate-y-1 hover:shadow-xl transition-all duration-200 bg-white overflow-hidden shadow-sm">
             <div className="relative row-span-4">
                 <div className="h-full overflow-hidden">
                     <Image
@@ -22,7 +22,7 @@ export default function CardPesantren({ pesantren }: { pesantren: PesantrenData 
                 </div>
                 <div className="absolute top-0 h-full w-full bg-gradient-to-b from-black/60 to-black/10 p-6 " >
                     <div className='text-center text-white'>
-                        <h6 className='text-2xl font-semibold'>{pesantren.name}</h6>
+                        <h6 className='text-2xl font-semibold line-clamp-2'>{pesantren.name}</h6>
                         {pesantren.kecamatan &&
                             <p className='text-lg font-normal capitalize'>{pesantren.kecamatan}</p>
                         }
@@ -37,8 +37,8 @@ export default function CardPesantren({ pesantren }: { pesantren: PesantrenData 
                     <div className="text-white text-lg font-normal">
                         {(pesantren.tingkat && pesantren.tingkat.length > 0) &&
                             <div className="grid grid-cols-8 gap-2">
-                                <Backpack className="my-auto" />
-                                <div className="col-span-7">
+                                <Backpack className="my-auto size-5" />
+                                <div className="col-span-7 line-clamp-1">
                                     {
                                         pesantren.tingkat?.map((tingkat, index) => {
                                             return (
@@ -54,16 +54,16 @@ export default function CardPesantren({ pesantren }: { pesantren: PesantrenData 
                         }
                         {pesantren.gender &&
                             <div className="grid grid-cols-8 gap-2">
-                                <User className="my-auto" />
-                                <p className="col-span-7 capitalize">
+                                <User className="my-auto size-5" />
+                                <p className="col-span-7 capitalize line-clamp-1">
                                     {(pesantren.gender === 'putra_putri' ? 'Putra & Putri' : pesantren.gender)}
                                 </p>
                             </div>
                         }
                         {pesantren.program && pesantren.program.length > 0 &&
                             <div className="grid grid-cols-8 gap-2">
-                                <Book className="my-auto" />
-                                <div className="col-span-7">
+                                <Book className="my-auto size-5" />
+                                <div className="col-span-7 line-clamp-1">
                                     {
                                         pesantren.program?.map((program, index) => {
                                             return (

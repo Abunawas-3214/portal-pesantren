@@ -5,7 +5,7 @@ export default function RelatedPostList({ relatedPosts }: { relatedPosts: { name
   return (
     <div className="w-full space-y-4">
       <h4 className='font-semibold text-xl text-primary'>Berita Terkait</h4>
-      <div className="grid grid-rows-3 grid-flow-col gap-y-4 gap-x-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-8">
         {relatedPosts.map((relatedPost, index) => (
           <RelatedPost
             key={index}

@@ -10,11 +10,11 @@ export default function HeroContent({ className, meta, ...props }: React.HTMLAtt
         <div className={cn(className)} {...props}>
             <div className="container mx-auto max-w-screen-xl">
                 <div className="grid grid-cols-1 md:grid-cols-2 h-screen">
-                    <div className="flex flex-col justify-center px-16 md:px-20 gap-4 h-screen md:h-full text-center md:text-left">
-                        <h1 className='font-semibold text-black text-5xl md:text-8xl'>{`Rabithah Ma'ahid Islamiyah`}</h1>
+                    <div className="flex flex-col justify-center px-6 md:px-20 gap-4 h-screen md:h-full text-center md:text-left">
+                        <h1 className='font-semibold text-black text-4xl md:text-8xl'>{`Rabithah Ma'ahid Islamiyah`}</h1>
                         <h6 className='text-sm md:text-3xl font-normal text-primary'>{`Nahdlatul Ulama' Kota Malang`}</h6>
                         <Link href={"/pesantren"}>
-                            <Button>
+                            <Button size="lg">
                                 Portal Pesantren
                             </Button>
                         </Link>

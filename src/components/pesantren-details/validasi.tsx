@@ -7,7 +7,7 @@ export default function validasi({ pesantrenValidasiData }: { pesantrenValidasiD
         <div className="space-y-2">
             <h2 className='text-black text-xl font-semibold'>Validitas Pesantren</h2>
             <p className="text-stone-500">Pesantren ini telah terverifikasi dan tersertifikasi di</p>
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-4">
                 {
                     pesantrenValidasiData.map((validasi) => {
                         return (

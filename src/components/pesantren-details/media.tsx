@@ -14,7 +14,7 @@ export default function Media({ pesantrenMediaData }: { pesantrenMediaData: Pesa
     return (
         <div className="space-y-2">
             <h2 className='text-black text-xl font-semibold'>Media Pesantren</h2>
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-4">
                 {pesantrenMediaData.instagram && (
                     <Button variant={"secondary"} className="border border-secondary p-4">
                         <a href={pesantrenMediaData.instagram} target="_blank" rel="noopener noreferrer">

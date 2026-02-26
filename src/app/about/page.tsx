@@ -2,6 +2,12 @@ import logoRMI from "@/components/svg/logos/logo_rmi.svg";
 import { Button } from "@/components/ui/button";
 import { SiWhatsapp } from "@icons-pack/react-simple-icons";
 import Image from "next/image";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Tentang Kami - Portal Pesantren RMI NU",
+  description: "Informasi mengenai Portal Pesantren RMI NU Kota Malang dan tim pengembang di baliknya.",
+};
 export default function AboutPage() {
   return (
     <main>
