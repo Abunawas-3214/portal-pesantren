@@ -14,28 +14,25 @@ export default function SearchPesantren() {
 
     const createQueryString = useCallback(
         (name: string, value: string) => {
-            const params = new URLSearchParams(searchParams.toString())
-            params.set(name, value)
-
-            return params.toString()
+            const current = new URLSearchParams(searchParams.toString())
+            current.set(name, value)
+            return current.toString()
         },
         [searchParams]
     )
 
     const deleteQueryString = useCallback((name: string) => {
-        const params = new URLSearchParams(searchParams.toString())
-        params.delete(name)
-        return params.toString()
+        const current = new URLSearchParams(searchParams.toString())
+        current.delete(name)
+        return current.toString()
     }, [searchParams])
 
+    // Debounce: wait 500ms after user stops typing before triggering search
     useEffect(() => {
         const handler = setTimeout(() => {
             setSearchTerm(inputValue)
-        }, 2000)
-
-        return () => {
-            clearTimeout(handler)
-        }
+        }, 500)
+        return () => clearTimeout(handler)
     }, [inputValue])
 
     useEffect(() => {
@@ -44,10 +41,11 @@ export default function SearchPesantren() {
         } else {
             router.push(pathname + '?' + deleteQueryString('search'))
         }
-    }, [searchTerm])
+    }, [searchTerm, router, pathname, createQueryString, deleteQueryString])
 
+    // Reset input when all search params are cleared
     useEffect(() => {
-        if (searchParams.size == 0) {
+        if (searchParams.size === 0) {
             setInputValue('')
         }
     }, [searchParams])

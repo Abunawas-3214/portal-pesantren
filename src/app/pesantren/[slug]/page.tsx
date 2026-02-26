@@ -1,3 +1,4 @@
+import { cache } from "react"
 import Image from "next/image"
 import rmiLogo from "/public/rmi.svg"
 import ImageGallery from "@/components/pesantren-details/image-gallery"
@@ -8,17 +9,25 @@ import Validasi from "@/components/pesantren-details/validasi"
 import VideoProfile from "@/components/pesantren-details/video-profile"
 import { Metadata } from "next"
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const { data: pesantren }: { data: PesantrenDetailData } = await fetchPesantrenDetail(params.slug)
+// React.cache deduplicates the fetch — generateMetadata and the page
+// component share a single network request per render cycle.
+const getPesantrenDetail = cache(async (slug: string): Promise<PesantrenDetailData> => {
+  const { data } = await fetchPesantrenDetail(slug)
+  return data
+})
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const pesantren = await getPesantrenDetail(slug)
   const title = `${pesantren.name} - Portal Pesantren RMI NU`
   const description = pesantren.deskripsi?.substring(0, 160).replace(/<[^>]*>/g, '') || `Profil lengkap ${pesantren.name}, beralamat di ${pesantren.alamat}.`
 
   return {
-    title: title,
-    description: description,
+    title,
+    description,
     openGraph: {
-      title: title,
-      description: description,
+      title,
+      description,
       type: "profile",
       images: [
         {
@@ -31,20 +40,18 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     },
     twitter: {
       card: "summary_large_image",
-      title: title,
-      description: description,
+      title,
+      description,
       images: [pesantren.logo || pesantren.photos?.[0]?.file || "/images/og-pesantren.jpg"],
     },
   }
 }
 
-export default async function PesantrenDetailsPage({ params }: { params: { slug: string } }) {
-  const { data: pesantren }: { data: PesantrenDetailData } = await fetchPesantrenDetail(params.slug)
-  const markup = {
-    __html: pesantren.deskripsi ?? ""
-  }
-  // console.log(pesantren.validasi)
-  // console.log(pesantren.photos)
+export default async function PesantrenDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const pesantren = await getPesantrenDetail(slug)
+  const markup = { __html: pesantren.deskripsi ?? "" }
+
   return (
     <main>
       <div className="container mx-auto max-w-screen-xl py-20 px-4 md:px-0 lg:py-40 space-y-24">
@@ -68,7 +75,6 @@ export default async function PesantrenDetailsPage({ params }: { params: { slug:
               {pesantren.photos.length > 0 &&
                 <ImageGallery photos={pesantren.photos} />
               }
-
             </div>
             {pesantren.deskripsi
               ? (
@@ -92,12 +98,10 @@ export default async function PesantrenDetailsPage({ params }: { params: { slug:
               </div>
             }
             <Media pesantrenMediaData={pesantren.media} />
-            {
-              pesantren.validasi.length > 0 &&
+            {pesantren.validasi.length > 0 &&
               <Validasi pesantrenValidasiData={pesantren.validasi} />
             }
-            {
-              pesantren.video_profil &&
+            {pesantren.video_profil &&
               <VideoProfile video_link={pesantren.video_profil} />
             }
           </div>

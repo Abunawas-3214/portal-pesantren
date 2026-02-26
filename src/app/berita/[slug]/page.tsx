@@ -1,22 +1,30 @@
+import { cache } from "react"
 import Image from "next/image"
-import imgBerita from "/public/images/alhikam.jpg"
 import CreatedByPesantren from "@/components/berita-details/created-by-pesantren"
 import RelatedPostList from "@/components/berita-details/related-post-list"
 import { BeritaDetail } from "@/types/berita"
 import { fetchBeritaDetail } from "@/lib/Api/Berita"
 import { Metadata } from "next"
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const { data: beritaDetail }: { data: BeritaDetail } = await fetchBeritaDetail(params.slug)
+// React.cache deduplicates the fetch — generateMetadata and the page
+// component share a single network request per render cycle.
+const getBeritaDetail = cache(async (slug: string): Promise<BeritaDetail> => {
+  const { data } = await fetchBeritaDetail(slug)
+  return data
+})
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const beritaDetail = await getBeritaDetail(slug)
   const title = `${beritaDetail.title} - Portal Pesantren RMI NU`
   const description = beritaDetail.content?.substring(0, 160).replace(/<[^>]*>/g, '') || ""
 
   return {
-    title: title,
-    description: description,
+    title,
+    description,
     openGraph: {
-      title: title,
-      description: description,
+      title,
+      description,
       type: "article",
       publishedTime: beritaDetail.created_at,
       authors: [beritaDetail.user || "Admin"],
@@ -31,17 +39,18 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     },
     twitter: {
       card: "summary_large_image",
-      title: title,
-      description: description,
+      title,
+      description,
       images: [beritaDetail.featured_image || "/images/og-news.jpg"],
     },
   }
 }
-export default async function BeritaDetailsPage({ params }: { params: { slug: string } }) {
-  const { data: beritaDetail }: { data: BeritaDetail } = await fetchBeritaDetail(params.slug)
-  const markup = {
-    __html: beritaDetail.content ?? ""
-  }
+
+export default async function BeritaDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const beritaDetail = await getBeritaDetail(slug)
+  const markup = { __html: beritaDetail.content ?? "" }
+
   return (
     <main>
       <div className="container mx-auto max-w-2xl px-4 md:px-0 pt-28 pb-20 md:py-40 space-y-12">
@@ -57,7 +66,7 @@ export default async function BeritaDetailsPage({ params }: { params: { slug: st
 
           {beritaDetail.featured_image && (
             <Image
-              src={beritaDetail.featured_image ?? imgBerita}
+              src={beritaDetail.featured_image}
               alt={beritaDetail.title}
               height={1000}
               width={1000}

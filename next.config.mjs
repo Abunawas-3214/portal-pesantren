@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    compress: true,
+    poweredByHeader: false,
     images: {
         remotePatterns: [
             {
@@ -8,7 +10,6 @@ const nextConfig = {
                 pathname: '/storage/**',
             },
         ]
-        // domains: ['localhost', '127.0.0.1'],
     }
 };
 

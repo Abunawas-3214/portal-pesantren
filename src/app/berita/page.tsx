@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default async function BeritaPage() {
-  let berita: Berita[] = (await fetchBerita()).data;
+  const berita: Berita[] = (await fetchBerita()).data;
   return (
     <main>
       <div className="container text-center mx-auto max-w-screen-xl py-24 md:py-40 space-y-12 md:space-y-24 px-4 md:px-0">

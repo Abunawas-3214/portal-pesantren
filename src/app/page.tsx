@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  let dataBeranda: BerandaData = await fetchBeranda();
+  const dataBeranda: BerandaData = await fetchBeranda();
   return (
     <main>
       <HeroSection meta={dataBeranda.meta} />

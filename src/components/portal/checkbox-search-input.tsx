@@ -17,25 +17,24 @@ export default function CheckboxSearchInput({ params, options }: CheckboxSearchI
 
     const createQueryString = useCallback(
         (name: string, value: string) => {
-            const params = new URLSearchParams(searchParams.toString())
-            params.set(name, value)
-
-            return params.toString()
+            const current = new URLSearchParams(searchParams.toString())
+            current.set(name, value)
+            return current.toString()
         },
         [searchParams]
     )
 
     const deleteQueryString = useCallback((name: string) => {
-        const params = new URLSearchParams(searchParams.toString())
-        params.delete(name)
-        return params.toString()
+        const current = new URLSearchParams(searchParams.toString())
+        current.delete(name)
+        return current.toString()
     }, [searchParams])
 
     const handleCheckboxChange = (value: string, isChecked: boolean) => {
         if (isChecked) {
-            setSelectedOptions([...selectedOptions, value]);
+            setSelectedOptions(prev => [...prev, value]);
         } else {
-            setSelectedOptions(selectedOptions.filter((option) => option !== value));
+            setSelectedOptions(prev => prev.filter((option) => option !== value));
         }
     };
 
@@ -45,7 +44,7 @@ export default function CheckboxSearchInput({ params, options }: CheckboxSearchI
         } else {
             router.push(pathname + '?' + deleteQueryString(params))
         }
-    }, [selectedOptions])
+    }, [selectedOptions, router, pathname, createQueryString, deleteQueryString, params])
 
     return (
         <div className="space-y-2">
@@ -53,7 +52,6 @@ export default function CheckboxSearchInput({ params, options }: CheckboxSearchI
             {options.map((option) => (
                 <Checkbox key={option} isChecked={selectedOptions.some(item => item === option)} value={option} onChange={handleCheckboxChange} />
             ))}
-            {/* <p>Selected options: {selectedOptions.join(',')}</p> */}
         </div>
     )
 }

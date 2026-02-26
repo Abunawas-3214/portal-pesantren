@@ -1,4 +1,5 @@
 import { pesantrenSearhParams } from "@/types";
+
 export type PesantrenData = {
     name: string
     slug: string
@@ -29,9 +30,7 @@ export type PesantrenDetailData = {
     video_profil: string
     media: PesantrenMediaData
     validasi: PesantrenValidasiData[]
-    photos: {
-        file: string
-    }[]
+    photos: { file: string }[]
 }
 
 export type PesantrenSidebarData = {
@@ -54,40 +53,33 @@ export type PesantrenMediaData = {
 }
 
 export type PesantrenValidasiData = {
-    kategori_validasi: string,
+    kategori_validasi: string
     file: string
 }
-export async function fetchPesantren(searchParams: pesantrenSearhParams | {}) {
-    try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_APP_API_HOST}/api/pesantren${Object.keys(searchParams).length > 0 ? '?' + new URLSearchParams(searchParams as any).toString() : ''
-            }`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            cache: 'no-store'
-        })
-        const data = await response.json()
-        return data
-    } catch (error) {
-        console.error('Error:', error)
+
+export async function fetchPesantren(searchParams: pesantrenSearhParams | Record<string, string>): Promise<{ data: PesantrenData[] }> {
+    const filteredParams = Object.entries(searchParams).filter(([, v]) => v !== undefined && v !== null && v !== '');
+    const queryString = filteredParams.length > 0
+        ? '?' + new URLSearchParams(Object.fromEntries(filteredParams)).toString()
+        : '';
+
+    const response = await fetch(`${process.env.NEXT_PUBLIC_APP_API_HOST}/api/pesantren${queryString}`, {
+        headers: { 'Content-Type': 'application/json' },
+        cache: 'no-store',
+    });
+    if (!response.ok) {
+        throw new Error(`Failed to fetch pesantren: ${response.status}`);
     }
+    return response.json();
 }
 
-export async function fetchPesantrenDetail(slug: string) {
-    try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_APP_API_HOST}/api/pesantren/${slug}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            next: {
-                revalidate: 60
-            }
-        })
-        const data = await response.json()
-        return data
-    } catch (error) {
-        console.error('Error:', error)
+export async function fetchPesantrenDetail(slug: string): Promise<{ data: PesantrenDetailData }> {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_APP_API_HOST}/api/pesantren/${slug}`, {
+        headers: { 'Content-Type': 'application/json' },
+        next: { revalidate: 60 },
+    });
+    if (!response.ok) {
+        throw new Error(`Failed to fetch pesantren detail for "${slug}": ${response.status}`);
     }
+    return response.json();
 }

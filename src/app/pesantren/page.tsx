@@ -14,7 +14,8 @@ export const metadata: Metadata = {
 };
 
 export const dynamic = "force-dynamic";
-export default function PesantrenPage({ searchParams }: { searchParams: pesantrenSearhParams }) {
+export default async function PesantrenPage({ searchParams }: { searchParams: Promise<pesantrenSearhParams> }) {
+  const resolvedSearchParams = await searchParams;
   return (
     <main>
       <div className="container mx-auto max-w-screen-xl py-24 md:py-40 space-y-12 md:space-y-24 px-4 md:px-0">
@@ -31,7 +32,7 @@ export default function PesantrenPage({ searchParams }: { searchParams: pesantre
 
           <div className="lg:col-span-3">
             <Suspense fallback={<PesantrenListSkeleton />}>
-              <PesantrenList fetchData={() => fetchPesantren(searchParams)} />
+              <PesantrenList fetchData={() => fetchPesantren(resolvedSearchParams)} />
             </Suspense>
           </div>
         </div>
