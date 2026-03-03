@@ -23,8 +23,8 @@ export default function AboutPage() {
           <div className="space-y-2 text-center">
             <h2 className="font-semibold text-xl">Portal Pesantren App</h2>
             <div className="space-y-0.5">
-              <p className="font-normal text-sm">Version 1.0.0</p>
-              <p className="font-normal text-xs">Release Date: 1 November 2024</p>
+              <p className="font-normal text-sm">Version 1.2.2</p>
+              <p className="font-normal text-xs">Release Date: 3 Maret 2026</p>
             </div>
             <div className="space-y-2">
               <p className="font-normal text-sm text-primary">Developed by</p>

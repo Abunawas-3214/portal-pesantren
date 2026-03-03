@@ -35,30 +35,44 @@ export default function SearchPesantren() {
         return () => clearTimeout(handler)
     }, [inputValue])
 
+    const handleSearch = (e?: React.FormEvent) => {
+        if (e) e.preventDefault();
+        setSearchTerm(inputValue);
+    };
+
     useEffect(() => {
+        const currentParams = new URLSearchParams(searchParams.toString());
         if (searchTerm) {
-            router.push(pathname + '?' + createQueryString('search', searchTerm))
+            currentParams.set('search', searchTerm);
         } else {
-            router.push(pathname + '?' + deleteQueryString('search'))
+            currentParams.delete('search');
         }
-    }, [searchTerm, router, pathname, createQueryString, deleteQueryString])
+
+        const newUrl = pathname + '?' + currentParams.toString();
+        // Only push if the URL actually changed to avoid redundant history entries
+        if (pathname + '?' + searchParams.toString() !== newUrl) {
+            router.push(newUrl, { scroll: false });
+        }
+    }, [searchTerm, router, pathname, searchParams]);
 
     // Reset input when all search params are cleared
     useEffect(() => {
-        if (searchParams.size === 0) {
+        if (!searchParams.get('search')) {
             setInputValue('')
+            setSearchTerm('')
         }
     }, [searchParams])
 
     return (
         <div className='flex justify-center w-full'>
-            <form action="" className='flex w-3/5'>
+            <form onSubmit={handleSearch} className='flex w-full md:w-3/5'>
                 <Input
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder="Cari Pesantren"
+                    className="rounded-r-none border-r-0"
                 />
-                <Button type='submit'>
+                <Button type='submit' className="rounded-l-none">
                     Cari
                 </Button>
             </form>

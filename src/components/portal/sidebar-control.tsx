@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
 import CheckboxSearchInput from "./checkbox-search-input";
-import { Checkbox } from "@radix-ui/react-checkbox";
 
 export default function SidebarControll({ className, ...props }: React.HTMLAttributes<HTMLElement>) {
 

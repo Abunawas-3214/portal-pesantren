@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import Checkbox from '../ui/checkbox';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
@@ -13,44 +13,40 @@ export default function CheckboxSearchInput({ params, options }: CheckboxSearchI
     const pathname = usePathname()
     const searchParams = useSearchParams()
 
-    const [selectedOptions, setSelectedOptions] = useState<string[]>(searchParams.get(params)?.split(",") ?? []);
+    // Derive selected options directly from URL to avoid sync issues between multiple instances
+    const selectedOptions = searchParams.get(params)?.split(",").filter(v => v !== "") ?? [];
 
-    const createQueryString = useCallback(
-        (name: string, value: string) => {
-            const current = new URLSearchParams(searchParams.toString())
-            current.set(name, value)
-            return current.toString()
-        },
-        [searchParams]
-    )
-
-    const deleteQueryString = useCallback((name: string) => {
+    const handleCheckboxChange = useCallback((value: string, isChecked: boolean) => {
         const current = new URLSearchParams(searchParams.toString())
-        current.delete(name)
-        return current.toString()
-    }, [searchParams])
+        let newValues = current.get(params)?.split(",").filter(v => v !== "") ?? []
 
-    const handleCheckboxChange = (value: string, isChecked: boolean) => {
         if (isChecked) {
-            setSelectedOptions(prev => [...prev, value]);
+            if (!newValues.includes(value)) {
+                newValues.push(value);
+            }
         } else {
-            setSelectedOptions(prev => prev.filter((option) => option !== value));
+            newValues = newValues.filter((option) => option !== value);
         }
-    };
 
-    useEffect(() => {
-        if (selectedOptions.length > 0) {
-            router.push(pathname + '?' + createQueryString(params, selectedOptions.join(',')))
+        if (newValues.length > 0) {
+            current.set(params, newValues.join(','))
         } else {
-            router.push(pathname + '?' + deleteQueryString(params))
+            current.delete(params)
         }
-    }, [selectedOptions, router, pathname, createQueryString, deleteQueryString, params])
+
+        router.push(pathname + '?' + current.toString(), { scroll: false })
+    }, [searchParams, params, pathname, router]);
 
     return (
         <div className="space-y-2">
             <h4 className="font-bold text-md capitalize">{params}</h4>
             {options.map((option) => (
-                <Checkbox key={option} isChecked={selectedOptions.some(item => item === option)} value={option} onChange={handleCheckboxChange} />
+                <Checkbox
+                    key={option}
+                    isChecked={selectedOptions.includes(option)}
+                    value={option}
+                    onChange={handleCheckboxChange}
+                />
             ))}
         </div>
     )
