@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { SiWhatsapp } from "@icons-pack/react-simple-icons";
 import Image from "next/image";
 import { Metadata } from "next";
+import { FileCheck } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Tentang Kami - Portal Pesantren RMI NU",
@@ -46,6 +47,16 @@ export default function AboutPage() {
                 <a href="https://wa.me/6282330809192" target="_blank" rel="noopener noreferrer">
                   <SiWhatsapp className="h-4 w-4 mr-2" />
                   Contact Us
+                </a>
+              </Button>
+
+            </div>
+            <div className="pt-10 space-y-2">
+              <p className="text-sm">RMI NU Kota Malang Brand Guidlines</p>
+              <Button variant={'secondary'} asChild>
+                <a href="https://drive.google.com/file/d/1R6UU_nEdv10MKQzOB-k1PYCFSL0aq6qf/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+                  <FileCheck className="h-4 w-4 mr-2" />
+                  Download
                 </a>
               </Button>
             </div>
