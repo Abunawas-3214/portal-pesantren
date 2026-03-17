@@ -51,8 +51,27 @@ export default async function BeritaDetailsPage({ params }: { params: Promise<{ 
   const beritaDetail = await getBeritaDetail(slug)
   const markup = { __html: beritaDetail.content ?? "" }
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "headline": beritaDetail.title,
+    "image": [beritaDetail.featured_image || "https://pesantrennu.id/images/og-news.jpg"],
+    "datePublished": beritaDetail.created_at,
+    "author": {
+      "@type": "Person",
+      "name": beritaDetail.user || "Admin RMI NU"
+    },
+    "publisher": {
+      "@id": "https://pesantrennu.id/#organization"
+    }
+  };
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="container mx-auto max-w-2xl px-4 md:px-0 pt-28 pb-20 md:py-40 space-y-12">
         <div className="space-y-6">
           <div className="space-y-4">

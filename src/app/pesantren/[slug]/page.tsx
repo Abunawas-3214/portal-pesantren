@@ -52,8 +52,34 @@ export default async function PesantrenDetailsPage({ params }: { params: Promise
   const pesantren = await getPesantrenDetail(slug)
   const markup = { __html: pesantren.deskripsi ?? "" }
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "url": `https://pesantrennu.id/pesantren/${slug}`,
+    "name": pesantren.name,
+    "description": pesantren.deskripsi?.substring(0, 200).replace(/<[^>]*>/g, '') || `Profil lengkap ${pesantren.name}.`,
+    "logo": pesantren.logo || "https://pesantrennu.id/rmi.svg",
+    "image": pesantren.photos?.[0]?.file || pesantren.logo,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": pesantren.alamat,
+      "addressLocality": "Malang",
+      "addressRegion": "Jawa Timur",
+      "addressCountry": "ID"
+    },
+    "contactPoint": pesantren.contact ? {
+      "@type": "ContactPoint",
+      "telephone": pesantren.contact,
+      "contactType": "general"
+    } : undefined
+  };
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="container mx-auto max-w-screen-xl py-20 px-4 md:px-0 lg:py-40 space-y-24">
         <div className="grid grid-cols-1 lg:grid-cols-7 gap-10">
           <div className="col-span-1 lg:col-span-5 h-fit w-full border py-6 px-4 lg:px-9 space-y-10">
