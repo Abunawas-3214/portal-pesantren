@@ -4,7 +4,7 @@ import "./globals.css";
 import Footer from "@/components/partials/footer";
 import Header from "@/components/partials/header";
 import BackToTop from "@/components/ui/back-to-top";
-
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -28,6 +28,7 @@ export default function RootLayout({
         {children}
         <Footer />
         <BackToTop />
+        <SpeedInsights />
       </body>
     </html>
   );
