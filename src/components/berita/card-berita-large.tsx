@@ -1,17 +1,19 @@
+'use client';
+
 import React from 'react'
 import CardBeritaLargePattern from './card-berita-large-pattern'
-import Image from 'next/image'
 import imgBerita from "/public/images/berita.jpg"
 import { Button } from '../ui/button'
 import Link from 'next/link'
 import { Berita } from '@/types/berita'
+import { ImageWithSkeleton } from './card-berita'
 
 export default function CardBeritaLarge({ berita }: { berita: Berita }) {
     return (
         <div className='h-fit md:h-[32rem] w-full overflow-hidden'>
             <div className="h-full w-full flex flex-col md:grid md:grid-rows-5">
                 <div className="relative w-full h-64 md:h-full md:row-span-3">
-                    <Image
+                    <ImageWithSkeleton
                         src={berita.featured_image ?? imgBerita}
                         alt="featured image berita"
                         fill
